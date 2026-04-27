@@ -38,7 +38,8 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-// frontend
+// 👉 ОТДАЁМ СБОРКУ FRONTEND
+const __dirname = new URL('.', import.meta.url).pathname;
 app.use(express.static(path.join(process.cwd(), "dist")));
 
 app.get("*", (req, res) => {
