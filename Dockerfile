@@ -2,17 +2,17 @@ FROM node:20
 
 WORKDIR /app
 
-# копируем всё
-COPY . .
-
-# ставим зависимости
+# сначала зависимости
+COPY package*.json ./
 RUN npm install
+
+# потом весь проект
+COPY . .
 
 # собираем frontend
 RUN npm run build
 
-# открываем порт
+# сервер
 EXPOSE 3001
 
-# запускаем сервер
 CMD ["node", "server/server.js"]
