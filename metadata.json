@@ -1,0 +1,6 @@
+{
+  "name": "NutriConsultant AI",
+  "description": "Персональный консультант-диетолог на базе Gemini. Помогает рассчитывать калории и составлять рацион питания.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
