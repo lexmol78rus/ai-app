@@ -2,13 +2,17 @@ FROM node:20
 
 WORKDIR /app
 
+# копируем всё
 COPY . .
 
+# ставим зависимости
 RUN npm install
+
+# собираем frontend
 RUN npm run build
 
-RUN npm install express cors dotenv @google/genai
-
+# открываем порт
 EXPOSE 3001
 
+# запускаем сервер
 CMD ["node", "server/server.js"]
