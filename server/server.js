@@ -37,5 +37,11 @@ app.post("/api/chat", async (req, res) => {
     res.status(500).json({ error: "Ошибка сервера" });
   }
 });
+import path from "path";
 
+app.use(express.static(path.join(process.cwd(), "dist")));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(process.cwd(), "dist", "index.html"));
+});
 app.listen(3001, () => console.log("Backend running on 3001"));
