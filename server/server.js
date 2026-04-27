@@ -1,14 +1,15 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import path from "path";
 import { GoogleGenAI } from "@google/genai";
 
 dotenv.config();
 
 const app = express();
-app.use(cors({
-  origin: "http://localhost:3000"
-}));
+
+// можно без ограничений, чтобы точно работало
+app.use(cors());
 app.use(express.json());
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
@@ -37,11 +38,16 @@ app.post("/api/chat", async (req, res) => {
     res.status(500).json({ error: "Ошибка сервера" });
   }
 });
-import path from "path";
 
+// 👉 ОТДАЁМ FRONTEND
 app.use(express.static(path.join(process.cwd(), "dist")));
 
-app.get("/", (req, res) => {
+// 👉 ВАЖНО: для React (SPA)
+app.get("*", (req, res) => {
   res.sendFile(path.join(process.cwd(), "dist", "index.html"));
 });
-app.listen(3001, () => console.log("Backend running on 3001"));
+
+// запуск сервера
+app.listen(3001, "0.0.0.0", () => {
+  console.log("Backend running on 3001");
+});
